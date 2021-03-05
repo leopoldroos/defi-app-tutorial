@@ -11,63 +11,99 @@ const StakingTable = ({
     const [amount, setAmount] = useState(0);
 
     return (
-        <div id="content" className="mt-3">
-            <table className="table table-borderless text-muted text-center">
-                <thead>
-                    <tr>
-                        <th scope="col">Staking Balance</th>
-                        <th scope="col">Reward Balance</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>{weiFromEther(stakingBalance)} mDAI</td>
-                        <td>{weiFromEther(dappTokenBalance)} DAPP</td>
-                    </tr>
-                </tbody>
-            </table>
+        <div
+            style={{
+                width: '100%'
+            }}>
+            <div
+                style={{
+                    width: '100%',
+                    display: 'grid',
+                    gridTemplateColumns: '50% 50%',
+                    textAlign: 'center',
+                    marginBottom: 10
+                }}>
+                <div
+                    style={{
+                        display: 'flex',
+                        flexDirection: 'column'
+                    }}>
+                    <span style={{}}>Staking Balance</span>
+                    <span>{weiFromEther(stakingBalance)} mDAI</span>
+                </div>
+                <div
+                    style={{
+                        display: 'flex',
+                        flexDirection: 'column'
+                    }}>
+                    <span style={{}}>Reward Balance</span>
+                    <span>{weiFromEther(dappTokenBalance)} DAPP</span>
+                </div>
+            </div>
+            <div style={{ border: '1px solid grey', padding: 10 }}>
+                <div
+                    style={{
+                        width: '100%',
+                        display: 'flex',
+                        textAlign: 'center',
+                        justifyContent: 'space-between'
+                    }}>
+                    <span>
+                        <b>Stake Tokens</b>
+                    </span>
+                    <span>Balance: {weiFromEther(daiTokenBalance)}</span>
+                </div>
+                <form style={{ width: '100%' }}>
+                    <div
+                        style={{
+                            width: '100%',
+                            display: 'flex',
+                            marginBottom: 10
+                        }}>
+                        <input
+                            style={{ width: 'inherit' }}
+                            type="text"
+                            ref={updatedAmount =>
+                                setAmount(
+                                    updatedAmount ? updatedAmount.value : 0
+                                )
+                            }
+                            placeholder="0"
+                            required
+                        />
+                        <div
+                            style={{
+                                backgroundColor: 'grey',
+                                color: 'white',
+                                display: 'flex',
+                                alignItems: 'center',
+                                paddingRight: 10
+                            }}>
+                            <img
+                                src="/dai.png"
+                                height="32"
+                                alt=""
+                                style={{ margin: 4 }}
+                            />
+                            mDAI
+                        </div>
+                    </div>
+                    <button
+                        type="submit"
+                        style={{
+                            width: '100%',
+                            backgroundColor: 'blue',
+                            border: '1px solid grey',
+                            color: 'white',
+                            padding: 10
+                        }}>
+                        STAKE!
+                    </button>
+                </form>
+            </div>
 
             <div className="card mb-4">
                 <div className="card-body">
-                    <form
-                        className="mb-3"
-                        onSubmit={event => {
-                            event.preventDefault();
-                            onStakeTokens(weiFromEther(amount));
-                        }}>
-                        <div>
-                            <label className="float-left">
-                                <b>Stake Tokens</b>
-                            </label>
-                            <span className="float-right text-muted">
-                                Balance: {weiFromEther(daiTokenBalance)}
-                            </span>
-                        </div>
-                        <div className="input-group mb-4">
-                            <input
-                                type="text"
-                                ref={updatedAmount =>
-                                    setAmount(
-                                        updatedAmount ? updatedAmount.value : 0
-                                    )
-                                }
-                                className="form-control form-control-lg"
-                                placeholder="0"
-                                required
-                            />
-                            <div className="input-group-append">
-                                <div className="input-group-text">
-                                    <img src="/dai.png" height="32" alt="" />
-                                    &nbsp;&nbsp;&nbsp; mDAI
-                                </div>
-                            </div>
-                        </div>
-                        <button
-                            type="submit"
-                            className="btn btn-primary btn-block btn-lg">
-                            STAKE!
-                        </button>
-                    </form>
                     <button
                         type="submit"
                         className="btn btn-link btn-block btn-sm"
