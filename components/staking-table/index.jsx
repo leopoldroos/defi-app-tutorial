@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, createRef } from 'react';
 import { weiFromEther } from '../../helpers/wei-ether-converter';
 
 const StakingTable = ({
@@ -9,7 +9,7 @@ const StakingTable = ({
     onUnstakeTokens
 }) => {
     const [amount, setAmount] = useState(0);
-
+    const amountRef = createRef();
     return (
         <div
             style={{
@@ -53,7 +53,17 @@ const StakingTable = ({
                     </span>
                     <span>Balance: {weiFromEther(daiTokenBalance)}</span>
                 </div>
-                <form style={{ width: '100%' }}>
+                <form
+                    style={{ width: '100%' }}
+                    onSubmit={e => {
+                        e.preventDefault();
+                        let inputAmount = amountRef.current.value;
+                        inputAmount = weiFromEther(inputAmount);
+
+                        // setAmount(inputAmount);
+                        onStakeTokens(inputAmount);
+                        console.log({ inputAmount });
+                    }}>
                     <div
                         style={{
                             width: '100%',
@@ -63,11 +73,8 @@ const StakingTable = ({
                         <input
                             style={{ width: 'inherit' }}
                             type="text"
-                            ref={updatedAmount =>
-                                setAmount(
-                                    updatedAmount ? updatedAmount.value : 0
-                                )
-                            }
+                            name="stakeAmount"
+                            ref={amountRef}
                             placeholder="0"
                             required
                         />

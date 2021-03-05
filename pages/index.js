@@ -54,7 +54,7 @@ export default function Home() {
             let daiTokenBalance = await daiToken.methods
                 .balanceOf(account)
                 .call();
-            setDaiTokenBalance(daiTokenBalance.toString());
+            setDaiTokenBalance(daiTokenBalance);
         } else {
             window.alert('DaiToken contract not deployed to detected network.');
         }
@@ -70,7 +70,7 @@ export default function Home() {
             let dappTokenBalance = await dappToken.methods
                 .balanceOf(account)
                 .call();
-            setDappTokenBalance(dappTokenBalance.toString());
+            setDappTokenBalance(dappTokenBalance);
         } else {
             window.alert(
                 'DappToken contract not deployed to detected network.'
